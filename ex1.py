@@ -34,7 +34,7 @@ elif birth_month < now.month:
 else:
     birth_year = now.year - y - 1
 
-# message = ""
+message = ""
 # while copy_number > 0:
 #     message = message + x + " you will turn 100 year old in " + str(birth_year + 100) + "; \n"
 #     copy_number = copy_number - 1
