@@ -2,12 +2,12 @@ import csv
 import os
 
 
-def import_csv_original_invoices():
+def import_csv_original_invoices(file_name):
     """
     Imports a csv file with the original invoices and stores it in an array.
     Returns the array.
     """
-    with open(os.path.dirname(os.path.realpath(__file__)) + '/facturas-iva-desglosado.csv', encoding="utf8") as file:
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/' + file_name, encoding="utf8") as file:
         reader = csv.DictReader(file, delimiter=',')
         csv_data = []
         for line in reader:
@@ -42,13 +42,13 @@ def import_csv_original_invoices():
     return csv_data
 
 
-def export_to_csv_processed_invoices(csv_data):
+def export_to_csv_processed_invoices(export_file_name, csv_data):
     """
     Export a csv file with the data extracted from the original invoices.
     """
-    with open(os.path.dirname(os.path.realpath(__file__)) + '/plantilla_compras_y_ventas.csv',
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/' + export_file_name,
               mode='w',
-              encoding="CP1252") as file:
+              encoding="utf8") as file:
         fieldnames = ['Nº Factura', 'Fecha', 'Proveedor', 'CIF', 'Base Imponible', 'Cuota IVA', '%IVA',
                       'Ret', '% Ret', 'Rec eq', '% Rec eq', 'Total', 'Tipo gasto']
         writer = csv.DictWriter(file, lineterminator='\n', fieldnames=fieldnames)

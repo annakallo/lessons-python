@@ -1,5 +1,5 @@
 import unittest
-import csv_converter
+from csv_file_converter import csv_converter
 
 
 class TestImportCsv(unittest.TestCase):
@@ -10,7 +10,8 @@ class TestImportCsv(unittest.TestCase):
         """
         Tests if the the function imports correctly the csv file and if the list created with the data is correct.
         """
-        result = csv_converter.import_csv_original_invoices()
+        file_name = 'facturas-iva-desglosado.csv'
+        result = csv_converter.import_csv_original_invoices(file_name)
         self.assertEqual(len(result[0]), 24)
         self.assertEqual(type(result[0]['cod_fact']), str)
         self.assertEqual(type(result[0]['base']), str)
@@ -58,12 +59,14 @@ class TestImportCsv(unittest.TestCase):
         """
         Checks how the data is converted.
         """
-        data = csv_converter.import_csv_original_invoices()
+        file_name = 'facturas-iva-desglosado.csv'
+        data = csv_converter.import_csv_original_invoices(file_name)
         result = csv_converter.convert_original_to_processed_data(data)
         self.assertEqual(len(result[0]), 13)
         self.assertEqual(type(result[0]['Nº Factura']), int)
         self.assertEqual(type(result[0]['Fecha']), str)
         self.assertEqual(type(result[0]['Proveedor']), str)
-        # for line in result:
-        #     print(line)
-        csv_converter.export_to_csv_processed_invoices(result)
+        for line in result:
+            print(line)
+        export_file_name = 'apple.csv'
+        csv_converter.export_to_csv_processed_invoices(export_file_name, result)
