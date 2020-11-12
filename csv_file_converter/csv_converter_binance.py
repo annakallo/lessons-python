@@ -56,11 +56,11 @@ def convert_source_to_target_data(csv_source_data):
     """
     csv_data_processed = []
     for line in csv_source_data:
+        if line['type'] == 'TRANSFER':
+            continue
         # setting the type
         comentario = ''
-        if line['type'] == 'TRANSFER':
-            type_of_entry = 'Transfer'
-        elif line['type'] == 'COMMISSION':
+        if line['type'] == 'COMMISSION':
             type_of_entry = 'Other Fee'
             comentario = 'Commission'
         elif line['type'] == 'REALIZED_PNL' and line['amount'] > 0:
@@ -68,7 +68,7 @@ def convert_source_to_target_data(csv_source_data):
         elif line['type'] == 'REALIZED_PNL' and line['amount'] < 0:
             type_of_entry = 'Derivatives / Futures Loss'
         else:
-            type_of_entry = 'Unknown type'
+            pass
         # setting the compra venta based if the amount is positive or negative
         if line['amount'] >= 0:
             compra = line['amount']
@@ -78,7 +78,7 @@ def convert_source_to_target_data(csv_source_data):
         else:
             compra = ''
             cur_compra = ''
-            venta = line['amount']
+            venta = -(line['amount'])
             cur_venta = line['asset']
         # filling up the new array
         csv_data_processed.append(
