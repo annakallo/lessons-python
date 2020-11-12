@@ -1,5 +1,6 @@
 import csv
 import os
+import sys
 
 
 def import_csv_original_invoices(file_name):
@@ -147,3 +148,22 @@ def convert_original_to_processed_data(csv_data_original):
                     }
                 )
     return csv_data_processed
+
+
+def main():
+    """
+    Imports the data from a csv file, converts it and exports it to another csv file.
+    """
+    if len(sys.argv) != 3:
+        print('This program requires two arguments: source file and target file.')
+        exit()
+
+    import_data = import_csv_original_invoices(sys.argv[1])
+
+    coverted_data = convert_original_to_processed_data(import_data)
+
+    export_to_csv_processed_invoices(sys.argv[2], coverted_data)
+
+
+# start of the application
+main()
