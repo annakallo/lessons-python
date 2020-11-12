@@ -53,7 +53,7 @@ class TestImportCsv(unittest.TestCase):
                 'Tipo gasto': 2
             }
         ]
-        result = csv_converter.export_to_csv_processed_invoices(data_csv)
+        result = csv_converter.export_to_csv_processed_invoices('output.csv', data_csv)
 
     def test_convert_original_to_processed_data(self):
         """
@@ -70,3 +70,5 @@ class TestImportCsv(unittest.TestCase):
             print(line)
         export_file_name = 'apple.csv'
         csv_converter.export_to_csv_processed_invoices(export_file_name, result)
+
+
